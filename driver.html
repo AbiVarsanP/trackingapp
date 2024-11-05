@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="navbar">
+        <img src="track.png" alt="App Icon">
+        <h1>TRACKZ</h1>
+    </div>
+    <div class="container">
+        <h2>Driver Dashboard</h2>
+
+        <!-- Emergency Button -->
+        <button class="emergency-btn" onclick="handleEmergency()">Emergency Alert</button>
+
+        <!-- Bus Change Option -->
+        <label for="newBusNumber">Update Bus Number (if changed):</label>
+        <input type="text" id="newBusNumber" placeholder="Enter new bus number">
+
+        <!-- Alter ETA -->
+        <label for="newEta">Update Estimated Arrival Time:</label>
+        <input type="time" id="newEta">
+
+        <!-- Submit Button for Changes -->
+        <button onclick="submitChanges()">Submit Changes</button>
+        
+        <!-- Confirmation Message -->
+        <div id="confirmationMessage" style="display:none; color: rgb(0, 255, 0);">
+            Changes have been submitted successfully!
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

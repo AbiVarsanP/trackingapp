@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Tracking</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="navbar">
+        <img src="track.png" alt="App Icon">
+        <h1>TRACKZ</h1>
+    </div>
+    <div class="container">
+        <h2>Track Your Student's Bus</h2>
+        
+        <!-- Student's Name -->
+        <label for="studentName">Student Name:</label>
+        <input type="text" id="studentName" placeholder="Enter student name" required>
+
+        <!-- Bus Number -->
+        <label for="busNumber">Bus Number:</label>
+        <input type="text" id="busNumber" placeholder="Enter bus number" required>
+
+        <!-- Track Bus Button -->
+        <button onclick="trackBus()">Track Bus Location</button>
+
+        <!-- Display Bus Location -->
+        <div id="busLocation">Location: Not available</div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
