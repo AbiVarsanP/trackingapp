@@ -69,3 +69,34 @@ function submitChanges() {
         alert("Please enter a new bus number or ETA before submitting.");
     }
 }
+
+// Function to track the bus location (You can enhance this with real-time data)
+function trackBus() {
+    const busLocationDiv = document.getElementById('busLocation');
+    const studentName = document.getElementById('studentName').value;
+    const busNumber = document.getElementById('busNumber').value;
+    
+    if (studentName && busNumber) {
+        // Simulating a bus location (this would be fetched from an actual bus tracking system)
+        busLocationDiv.innerHTML = `Tracking Bus ${busNumber} for student ${studentName}: Location - 12.9716° N, 77.5946° E`; // Example coordinates (Bangalore)
+    } else {
+        busLocationDiv.innerHTML = 'Please enter both student name and bus number.';
+    }
+}
+
+// Function to get the current GPS location
+function getGPSLocation() {
+    const gpsLocationDiv = document.getElementById('gpsLocation');
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            gpsLocationDiv.innerHTML = `GPS Location: Latitude: ${latitude}, Longitude: ${longitude}`;
+        }, function(error) {
+            gpsLocationDiv.innerHTML = 'Unable to retrieve GPS location.';
+        });
+    } else {
+        gpsLocationDiv.innerHTML = 'Geolocation is not supported by this browser.';
+    }
+}
