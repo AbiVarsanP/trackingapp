@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parent Tracking</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Track Bus Location</title>
+    <!-- Leaflet.js CSS for map styling -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        #map {
+            height: 300px; /* Set map height */
+            width: 100%;   /* Set map width to 100% */
+        }
+    </style>
 </head>
 <body>
     <div class="navbar">
@@ -27,7 +35,65 @@
 
         <!-- Display Bus Location -->
         <div id="busLocation">Location: Not available</div>
+
+        <!-- Map container -->
+        <div id="map"></div>
     </div>
-    <script src="script.js"></script>
+
+    <!-- Leaflet.js Library -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map (with a default location in case geolocation fails)
+        var map = L.map('map').setView([51.505, -0.09], 13); // Default to London, but will update with current location
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Marker to show user's location
+        var userMarker = L.marker([51.505, -0.09]).addTo(map); // Default to London
+
+        // Function to track bus (example)
+        function trackBus() {
+            var studentName = document.getElementById('studentName').value;
+            var busNumber = document.getElementById('busNumber').value;
+            if (studentName && busNumber) {
+                alert('Tracking bus: ' + busNumber + ' for ' + studentName);
+                updateUserLocation(); // Call the function to update user's location
+            }
+        }
+
+        // Function to update user's current location using the Geolocation API
+        function updateUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+
+                    // Update map to the user's current location
+                    map.setView([latitude, longitude], 13);
+
+                    // Update the marker to user's current location
+                    userMarker.setLatLng([latitude, longitude]);
+
+                    // Optional: Add a popup with the user's location
+                    userMarker.bindPopup("You are here: " + latitude.toFixed(2) + ", " + longitude.toFixed(2)).openPopup();
+
+                    // Update the displayed location in the div
+                    document.getElementById('busLocation').innerText = 'Location: ' + latitude.toFixed(2) + ', ' + longitude.toFixed(2);
+                }, function(error) {
+                    alert("Geolocation failed: " + error.message);
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        // Automatically update user's location when the page loads
+        window.onload = function() {
+            updateUserLocation(); // Call the function on page load
+        }
+    </script>
 </body>
 </html>
